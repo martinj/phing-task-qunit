@@ -11,6 +11,10 @@
  * @param timeOutMillis the max amount of time to wait. If not specified, 3 sec is used.
  */
  /*jshint evil:true */
+
+ var system = require('system'),
+ 	page = require('webpage').create();
+
 function waitFor(testFx, onReady, timeOutMillis) {
 	var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 30001, //< Default Max Timout is 3s
 		start = new Date().getTime(),
@@ -38,19 +42,17 @@ function waitFor(testFx, onReady, timeOutMillis) {
 		}, 100); //< repeat check every 250ms
 }
 
-if (phantom.args.length === 0 || phantom.args.length > 2) {
+if (system.args.length === 1) {
 	console.log('Usage: run-qunit.js URL');
 	phantom.exit(1);
 }
-
-var page = new WebPage();
 
 // Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
 page.onConsoleMessage = function (msg) {
 	console.log(msg);
 };
 
-page.open(phantom.args[0], function (status) {
+page.open(system.args[1], function (status) {
 	if (status !== "success") {
 		console.log("Unable to access network");
 		phantom.exit(1);

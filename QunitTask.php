@@ -59,8 +59,10 @@ class QunitTask extends Task {
 		if(!isset($this->file) and count($this->filesets) == 0) {
 			throw new BuildException("Missing either a nested fileset or attribute 'file' set");
 		}
-		exec($this->executable, $output);
-		if (!preg_match('/Usage:\sphantomjs/', implode('', $output))) throw new BuildException('phantomjs command not found');
+		exec($this->executable . '  --version', $output);
+		if (!preg_match('/\d+\.\d+\.\d+/', implode('', $output))) {
+			throw new BuildException('phantomjs command not found');
+		}
     
 		if($this->file instanceof PhingFile) {
 			$this->run($this->file->getPath());

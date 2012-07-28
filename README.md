@@ -6,7 +6,7 @@ This project is a [Phing](https://github.com/phingofficial/phing) build tool tas
 
 This project has been tested with
 
- - [PhantomJS](https://github.com/ariya/phantomjs) 1.3.0
+ - [PhantomJS](https://github.com/ariya/phantomjs) 1.6.0
  - [QUnit](https://github.com/jquery/qunit) 1.3
 
 ## Example
