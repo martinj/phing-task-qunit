@@ -73,8 +73,8 @@ page.open(system.args[1], function (status) {
 				for (var i in tests) {
 					var text = tests[i].innerText;
 					if (text !== undefined) {
-						if (/Rerun$/.test(text)) {
-							text = text.substring(0, text.length - 5);
+						if (/\)Rerun($|\n)/.test(text)) {
+							text = (text.match(/^(.*?)Rerun($|\n)/))[1];
 						}
 						console.log(text + "\n");
 					}
