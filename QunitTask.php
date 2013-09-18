@@ -99,7 +99,7 @@ class QunitTask extends Task {
 		$summary = $messages[sizeof($messages) - 1];
 		
 		$matches = array();
- 		if (preg_match('/(\d+) tests of (\d+) passed, (\d+) failed/', $summary, $matches)) {
+ 		if (preg_match('/(\d+) assertions of (\d+) passed, (\d+) failed/', $summary, $matches)) {
 			if ($matches[3] > 0) {
 				$this->hasErrors = true;
 			   	$this->log($matches[3] . ' tests failed on: ' . $file, Project::MSG_ERR);
@@ -108,6 +108,9 @@ class QunitTask extends Task {
 				$this->log($file . ': ' . $matches[0], Project::MSG_INFO);
 			}
 		}
+        else {
+            throw new BuildException('QUnit summary message did not match regex');
+        }
 	}
 
 	private function logFailedTests($messages) {
